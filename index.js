@@ -35,7 +35,7 @@ app.post("/api/chat", async (req, res) => {
                     "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
                 },
                 body: JSON.stringify({
-                    model: "gemini-3.8-flash",
+                    model: "gemini-2.5-flash-lite",
                     messages: message,
                     temperature: 0.7,
                     max_tokens: 1000,
