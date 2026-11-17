@@ -102,20 +102,15 @@ app.post("/api/chat", async (req, res) => {
         res.write("data: [DONE]\n\n");
         res.end();
 
-    } catch (error) {
+   } catch (error) {
         console.error("Server Error:", error);
         if (!res.headersSent) {
             res.status(500).json({ error: "Internal Server Error" });
-        }else {
+        } else {
             res.write(`data: ${JSON.stringify({ error: "Internal Server Error" })}\n\n`);
-        res.end();
+            res.end();
         }
     }
-
-});
-
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
 });
 
 module.exports = app;
