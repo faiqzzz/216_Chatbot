@@ -10,21 +10,25 @@ app.use(express.json());
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
+
     res.redirect.static("index.html");
+
 });
+
+
 
 app.post("/api/chat", async (req, res) => {
     try {
-        const { message } = req.body.message;
+        const { message } = req.body;
 
         if (!message || !Array.isArray(message)){
             return res.status(400).json({
-                 error: "M<essage harus berupa Array" 
+                 error: "Message harus berupa Array" 
                 });
         }
 
         const response = await fetch(
-            "https://api.openrouter.ai/v1/chat/completions",
+            "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
             {
                 method: "POST",
                 
@@ -33,7 +37,7 @@ app.post("/api/chat", async (req, res) => {
                     "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
                 },
                 body: JSON.stringify({
-                    model: "inclusion/ling-3.2-flash:free",
+                    model: "gemini-3.8-flash",
                     messages: message,
                     temperature: 0.7,
                     max_tokens: 1000,
